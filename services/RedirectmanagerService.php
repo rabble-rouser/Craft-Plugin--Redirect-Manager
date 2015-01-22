@@ -14,6 +14,19 @@ class RedirectmanagerService extends BaseApplicationComponent
 			$this->redirectRecord = RedirectmanagerRecord::model();
 		}
 	}
+	
+	public function redirect()
+	{
+		// redirects only take place out of the CP
+		if(craft()->request->isSiteRequest()){
+			$path = craft()->request->getPath();
+			if( $location = $this->processRedirect($path) )
+			{
+				header("Location: ".$location['url'], true, $location['type']);
+				exit();
+			}
+		}
+	}
 
 	public function processRedirect($uri)
 	{
