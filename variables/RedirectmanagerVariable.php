@@ -15,4 +15,8 @@ class RedirectManagerVariable
 		return craft()->redirectmanager->getRedirectById($id);
 	}
 	
+	public function redirect()
+	{
+		return craft()->redirectmanager->redirect();
+	}
 }
