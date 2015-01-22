@@ -29,19 +29,6 @@ class RedirectmanagerPlugin extends BasePlugin
 		return true;
 	}
 
-	public function init()
-	{
-		// redirects only take place out of the CP
-		if(craft()->request->isSiteRequest()){
-			$path = craft()->request->getPath();
-			if( $location = craft()->redirectmanager->processRedirect($path) )
-			{
-				header("Location: ".$location['url'], true, $location['type']);
-				exit();
-			}
-		}
-	}
-
 	public function registerCpRoutes()
 	{
 		return array(
