@@ -9,6 +9,16 @@
 {% endif %}
 
 {% set title = redirectRecord ? "Edit Redirect"|t : "New Redirect"|t %}
+{% set tabLabel = redirectRecord ? 'Edit'|t : 'New'|t %}
+{% set tabs = {
+	home: { label: "Home"|t, url: url('redirectmanager') },
+	newEdit: { label: "New/Edit"|t, url: url('redirectmanager/new') },
+	import: {label: "Import"|t, url: url('redirectmanager/import') }
+	}
+%}
+
+{% set selectedTab = 'newEdit' %}
+
 {% set crumbs = [
 	{ label: "Redirect Manager"|t, url: url('redirectmanager') }
 ] %}
@@ -58,6 +68,23 @@
 					label: "302 Temporary",
 					value: "302"
 				}]
+			}) }}
+		</p>
+
+		<p>
+			{{ forms.selectField({
+			label: 'Redirect Time'|t,
+			required: true,
+			name: 'redirectRecord[redirectTime]',
+			value: redirectRecord ? redirectRecord.redirectTime : null,
+			errors: redirectRecord ? redirectRecord.errors('redirectTime') : null,
+			options: [{
+			label: "Pre-404",
+			value: "pre404"
+			},{
+			label: "Post-404",
+			value: "post404"
+			}]
 			}) }}
 		</p>
 

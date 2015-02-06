@@ -11,6 +11,7 @@ class RedirectmanagerModel extends BaseModel
 			'uri' => AttributeType::String,
 			'location' => AttributeType::String,
 			'type' => AttributeType::String,
+			'redirectTime' =>AttributeType::String,
 		);
 	}
 }

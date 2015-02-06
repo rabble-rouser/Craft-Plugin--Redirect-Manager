@@ -33,7 +33,8 @@ class RedirectmanagerPlugin extends BasePlugin
 	{
 		return array(
 			'redirectmanager\/new' => 'redirectmanager/_edit',
-			'redirectmanager\/(?P<redirectId>\d+)' => 'redirectmanager/_edit'
+			'redirectmanager\/(?P<redirectId>\d+)' => 'redirectmanager/_edit',
+			'redirectmanager\/import' => 'redirectmanager/_import',
 		);
 	}
 	public function onAfterInstall()
@@ -45,5 +46,18 @@ class RedirectmanagerPlugin extends BasePlugin
 		foreach ($redirects as $redirect) {
 			craft()->db->createCommand()->insert('redirectmanager', $redirect);
 		}
+	}
+
+	//TODO: get event handler to work again. add regex matching for check
+	/**
+	 * call parent init, call pre404 redirects, listen for entry slug changes
+	 */
+	public function init()
+	{
+		parent::init();
+		$redirectTime = 'pre404';
+		craft()->redirectmanager_redirect->redirect($redirectTime);
+
+		craft()->redirectmanager_redirect->onEntrySlugChange();
 	}
 }

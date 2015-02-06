@@ -1,0 +1,104 @@
+{% extends "_layouts/cp" %}
+{% import "_includes/forms" as forms %}
+
+
+{% set title = "Import Redirects"|t %}
+
+{% set tabs = {
+    home: { label: "Home"|t, url: url('redirectmanager') },
+    newEdit: { label: "New/Edit"|t, url: url('redirectmanager/new') },
+    import: {label: "Import"|t, url: url('redirectmanager/import') }
+    }
+%}
+
+{% set selectedTab = 'import' %}
+
+{% set crumbs = [
+    { label: "Redirect Manager"|t, url: url('redirectmanager') }
+] %}
+
+{% includeJsResource "redirectmanager/importer.js" %}
+
+{% set content %}
+
+    <form method="post" action="" id="importForm" accept-charset="UTF-8" enctype="multipart/form-data">
+        <p>
+        <h3> Select a file </h3>
+         {{ forms.file({
+             label: 'Select a file'|t,
+             required: true,
+             name: 'file',
+             id: 'file',
+         }) }}
+        </p>
+
+        <h3> Select redirect type </h3>
+        <p>
+         {{ forms.radio({
+            label: '302'|t,
+            name: 'redirectType'|t,
+            id: '302'|t,
+            value: '302'|t
+         }) }}
+        </p>
+
+         <p>
+         {{ forms.radio({
+            label: '301 - Permanent'|t,
+            name: 'redirectType'|t,
+            id: '301'|t,
+            value: '301'|t
+         }) }}
+        </p>
+
+        <h3> Select match type </h3>
+        <p>
+         {{ forms.radio({
+            label: 'Regex'|t,
+            name: 'matchType'|t,
+            id: 'regex'|t,
+            value: 'regex'|t
+         }) }}
+        </p>
+
+        <p>
+         {{ forms.radio({
+            label: 'String'|t,
+            name: 'matchType'|t,
+            id: 'string'|t,
+            value: 'string'|t
+         }) }}
+        </p>
+
+        <h3> Select redirect time </h3>
+        <p>
+         {{ forms.radio({
+            label: 'Pre-404'|t,
+            name: 'redirectTime'|t,
+            id: 'pre404'|t,
+            value: 'pre404'|t
+         }) }}
+        </p>
+
+        <p>
+         {{ forms.radio({
+            label: 'Post-404'|t,
+            name: 'redirectTime'|t,
+            id: 'post404'|t,
+            value: 'post404'|t
+         }) }}
+        </p>
+
+        <div class="buttons">
+            <input type="submit" id='submitForm' class="btn submit" value="{{ 'Import'|t }}">
+        </div>
+
+    </form>
+
+
+
+
+
+
+{% endset %}
+
