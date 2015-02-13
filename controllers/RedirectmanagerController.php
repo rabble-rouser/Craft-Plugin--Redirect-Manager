@@ -51,13 +51,7 @@ class RedirectmanagerController extends BaseController
 		$matchType = craft()->request->getPost('MatchType');
 		$redirectType = craft()->request->getPost('RedirectType');
 		$redirectTime = craft()->request->getPost('RedirectTime');
-		/*$matchType = 'regex';
-		$redirectType = '302';
 
-		$file = craft()->path->tempPath . 'URLReport.csv';
-		$filecontents = IOHelper::getFileContents($file);*/
-
-		//TODO: fix param 2, get ext from file in js and pass as part of data.
 		$redirectsProcessed = craft()->redirectmanager_import->import($file, $extension, $matchType, $redirectType, $redirectTime);
 
 		if($redirectsProcessed)

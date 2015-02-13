@@ -192,6 +192,7 @@ class Redirectmanager_RedirectService extends BaseApplicationComponent
 		$this->oldURL = $url;
 	}
 
+		//TODO: leading '/' messes this up.
 	/**
 	 * Listen for a save entry event, and check to see if the entry url has changed. If it has changed
 	 * and the entry was listed as a redirect, update the redirect with the new url.
@@ -207,6 +208,8 @@ class Redirectmanager_RedirectService extends BaseApplicationComponent
 
 		craft()->on('entries.saveEntry', function(Event $event){
 			$newURL = $event->params['entry']->getUrl();
+
+
 
 			//check if the entry is not new and if the URL has changed
 			if(!$event->params['isNewEntry'] and $newURL !== $this->getOldURL())
